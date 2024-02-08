@@ -4,7 +4,7 @@ function TicketsRow({
   descripcion,
   precio,
   cantidad,
-  addTcketQuantity,
+  addTickecQuantity,
   subtrackTicketQuantyti,
 }) {
   return (
@@ -22,7 +22,7 @@ function TicketsRow({
         <span>{cantidad}</span>
         <button
           className="btn btn-primary m-3"
-          onClick={() => addTcketQuantity(id)}
+          onClick={() => addTickecQuantity(id)}
         >
           +
         </button>

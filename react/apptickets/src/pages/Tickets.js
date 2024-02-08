@@ -16,7 +16,6 @@ const tickets = [
   },
 ];
 
-
 const Tickets = () => {
   return (
     <>

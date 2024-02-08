@@ -10,23 +10,33 @@ function TicketsTable({ tickets }) {
   useEffect(() => {
     discpach({ type: SET_TICKETS, payload: { tickets } });
   }, [tickets]);
-  const addTcketQuantity = (id) =>
+  const addTickecQuantity = (id) => {
+    console.log(id);
     discpach({ type: ADD_QUANTITY, payload: { id } });
+  };
+
   return (
-    <Table>
-      <thead>
-        <tr>
-          <th className="text-center">Tickets</th>
-          <th className="text-center">Cantidad</th>
-          <th className="text-center">Precio</th>
-        </tr>
-      </thead>
-      <tbody>
-        {tickets?.map((ticket) => (
-          <TicketsRow key={ticket.id} {...ticket} addTcketQuantity={addTcketQuantity}/>
-        ))}
-      </tbody>
-    </Table>
+    <>
+      <Table>
+        <thead>
+          <tr>
+            <th className="text-center">Tickets</th>
+            <th className="text-center">Cantidad</th>
+            <th className="text-center">Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tickets?.map((ticket) => (
+            <TicketsRow
+              key={ticket.id}
+              {...ticket}
+              addTickecQuantity={addTickecQuantity}
+            />
+          ))}
+        </tbody>
+      </Table>
+      ${state.total}
+    </>
   );
 }
 
