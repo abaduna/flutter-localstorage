@@ -14,6 +14,7 @@ async function getUser() {
   let data = await response.json();
   console.log(data);
 }
+/**sdlkfsdhnvsdgnfsd */
 export default async function Home() {
   const data= await getUser();
 
