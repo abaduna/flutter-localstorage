@@ -7,27 +7,15 @@ export interface Menu {
   url_imagen: string;
 }
 async function getUser() {
-  try {
-    const res = await fetch("http://192.168.0.95:3001/Api/menu");
-    if (!res.ok) {
-      console.log("ok");
+  let response = await fetch("http://192.168.0.95:3001/api/menu", {
+    method: "GET",
+  });
 
-      throw new Error("Network response was not ok");
-    }
-    console.log(res);
-
-    const { data } = await res.json();
-    console.log(`data ${data}`);
-    return data;
-  } catch (error) {
-    console.log(`catch`);
-
-    console.error("There was a problem with the fetch operation:", error);
-    return null; // Opcional: puedes manejar el error de otra manera según tus necesidades
-  }
+  let data = await response.json();
+  console.log(data);
 }
 export default async function Home() {
-  const data: Menu[] = await getUser();
+  const data= await getUser();
 
   return (
     <div>
