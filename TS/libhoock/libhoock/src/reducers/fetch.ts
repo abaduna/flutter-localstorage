@@ -1,7 +1,7 @@
 import { type actionProps, ACTIONS } from '../actions/fetch';
 export const initialState:initialState = {
   data: '',
-  error: '',
+  error: "",
   loading: false,
 };
 export interface initialState {
@@ -9,18 +9,18 @@ export interface initialState {
     error:string
     loading:boolean
 }
-export const fetchReducer = (state:initialState, action: { type: any; payload: any; }) => {
+export const fetchReducer = (state:initialState, action: { type: any; payload: any; }):initialState => {
   switch (action.type) {
     case ACTIONS.SET_DATA:
       return {
         loading: false,
-        error: false,
+        error: "",
         data: action.payload,
       };
     case ACTIONS.SET_ERROR:
       return {
         ...initialState,
-        error: true,
+        error: action.payload,
         loading: false,
       };
 

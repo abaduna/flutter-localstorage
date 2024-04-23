@@ -5,9 +5,18 @@ import * as React from 'react';
 import { useLiveRef } from './useLiveRef';
 import { config } from 'process';
 import { setCommonHeaders } from '../utils/header';
-import { initialState, fetchReducer } from '../reducers/fetch';
+import { fetchReducer, initialState } from '../reducers/fetch';
 import { ACTIONS } from '../actions/fetch';
+import { unlink } from 'fs';
 
+interface dispach {
+  type: String;
+  payload: unknown;
+}
+interface reducer {
+  dispach:dispach
+  state:initialState
+}
 interface Config extends AxiosRequestConfig {
   instance?: AxiosInstance;
   method: 'get' | 'post' | 'put' | 'patch' | 'delete';
@@ -34,7 +43,7 @@ export const useAxios = <T>(Config: Config): UseAxios<T> => {
 
   instance.defaults.timeout = 300;
   setCommonHeaders(instance);
-  const [state, dispatch] = React.useReducer(fetchReducer, initialState);
+  const [state, dispatch] = React.useReducer<typeof fetchReducer>(fetchReducer, initialState);
 
   const fetch = React.useCallback(
     async (config: Config): Promise<void> => {
@@ -51,16 +60,19 @@ export const useAxios = <T>(Config: Config): UseAxios<T> => {
             ...instance.defaults.headers.common,
           },
         });
-        dispach({ type: ACTIONS.SET_DATA, payload: res.data });
+        dispatch({ type: ACTIONS.SET_DATA, payload: res.data });
       } catch (err) {
         if (err instanceof AxiosError) {
-          dispach({ type: ACTIONS.SET_ERROR });
+          dispatch({ type: ACTIONS.SET_ERROR ,payload:{}});
         }
       }
     },
     [instance, config]
   );
   return {
-    state
+    data: state.data as T | null,
+    error: state.error as string,
+    loading: state.loading,
+    fetcher: () => fetch(configRef.current), 
   };
 };
