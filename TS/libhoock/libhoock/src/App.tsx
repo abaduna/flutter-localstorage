@@ -1,8 +1,13 @@
+import ComponetPapa from "./ComponetPapa";
+import FetchProvider from "./contex/providerFetch";
+
 function App() {
+
   return (
     <>
-      <h1>home</h1>
-      
+      <FetchProvider>
+        <ComponetPapa></ComponetPapa>
+      </FetchProvider>
     </>
   );
 }
